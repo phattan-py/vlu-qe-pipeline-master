@@ -1,5 +1,7 @@
-const { login } = require("./auth");
+const { login } = require('./auth');
 
-test("Smoke Test - đăng nhập đúng admin/123 trả về true", () => {
-  expect(login("admin", "123")).toBe(true);
+describe('Smoke Test - Login Core Function', () => {
+  test('Đăng nhập đúng (admin/123) phải trả về true', () => {
+    expect(login('admin', '123')).toBe(true);
+  });
 });
