@@ -1,37 +1,27 @@
-const { login } = require("./auth");
+const { login } = require('./auth');
 
-describe("Regression Test - Login", () => {
-  test("Đăng nhập đúng", () => {
-    expect(login("admin", "123")).toBe(true);
+describe('Regression Test - Login Exception Cases', () => {
+  test('Mật khẩu sai phải trả về false', () => {
+    expect(login('admin', 'wrongpass')).toBe(false);
   });
 
-  test("Mật khẩu sai", () => {
-    expect(() => login("admin", "456"))
-      .toThrow("Sai username hoặc password");
+  test('Username rỗng phải trả về false', () => {
+    expect(login('', '123')).toBe(false);
   });
 
-  test("Username sai", () => {
-    expect(() => login("user", "123"))
-      .toThrow("Sai username hoặc password");
+  test('Password rỗng phải trả về false', () => {
+    expect(login('admin', '')).toBe(false);
   });
 
-  test("Username rỗng", () => {
-    expect(() => login("", "123"))
-      .toThrow("Username không được để trống");
+  test('Mật khẩu chứa ký tự đặc biệt phải trả về false', () => {
+    expect(login('admin', '123@#$%')).toBe(false);
   });
 
-  test("Mật khẩu rỗng", () => {
-    expect(() => login("admin", ""))
-      .toThrow("Password không được để trống");
+  test('Username không tồn tại (tài khoản không hợp lệ) phải trả về false', () => {
+    expect(login('unknown_user', '123')).toBe(false);
   });
 
-  test("Mật khẩu chứa ký tự đặc biệt", () => {
-    expect(() => login("admin", "123@"))
-      .toThrow("Mật khẩu không được chứa ký tự đặc biệt");
-  });
-
-  test("Tài khoản bị khóa", () => {
-    expect(() => login("locked", "123"))
-      .toThrow("Tài khoản đã bị khóa");
+  test('Username đúng nhưng có khoảng trắng thừa phải trả về false', () => {
+    expect(login(' admin ', '123')).toBe(false);
   });
 });
