@@ -1,7 +1,7 @@
 function login(username, password) {
   // Kiểm tra username rỗng
   if (!username) {
-    throw new Error("Username không được để trống");
+    throw new Error("Username không đựợc để trống");
   }
 
   // Kiểm tra password rỗng
